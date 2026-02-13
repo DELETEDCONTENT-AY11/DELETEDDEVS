@@ -4,6 +4,7 @@ local CommF = rs.Remotes.CommF_
 local RunSer = game:GetService("RunService")
 local TweenSer = game:GetService("TweenService")
 local VU = game:GetService("VirtualUser")
+local TS = game:GetService("TeleportService")
 
 spawn(function()
     plr.Idled:Connect(function()
@@ -28,34 +29,15 @@ local Kaitun = {
     AutoGodHuman = true,
     AutoCDK = true,
     AutoSkullGuitar = true,
+    AutoMirrorFractal = true,
+    AutoValkHelm = true,
     AutoBuyHaki = true,
     AutoRaid = true,
     FragmentGoal = 10000
 }
 
 local HighValueFruits = {
-    "Dragon-Dragon",
-    "Kitsune-Kitsune",
-    "Yeti-Yeti",
-    "Gas-Gas",
-    "Tiger-Tiger",
-    "Rumble-Rumble",
-    "Dough-Dough",
-    "T-Rex-T-Rex",
-    "Pain-Pain",
-    "Gravity-Gravity",
-    "Venom-Venom",
-    "Control-Control",
-    "Spirit-Spirit",
-    "Leopard-Leopard",
-    "Mammoth-Mammoth",
-    "Blizzard-Blizzard",
-    "Portal-Portal",
-    "Shadow-Shadow",
-    "Dark-Dark",
-    "Buddha-Human: Buddha Fruit",
-    "Quake-Quake",
-    "Light-Light"
+    "Dragon-Dragon","Kitsune-Kitsune","Yeti-Yeti","Gas-Gas","Tiger-Tiger","Rumble-Rumble","Dough-Dough","T-Rex-T-Rex","Pain-Pain","Gravity-Gravity","Venom-Venom","Control-Control","Spirit-Spirit","Leopard-Leopard","Mammoth-Mammoth","Blizzard-Blizzard","Portal-Portal","Shadow-Shadow","Dark-Dark","Buddha-Human: Buddha Fruit","Quake-Quake","Light-Light"
 }
 
 local sg = Instance.new("ScreenGui", game.CoreGui)
@@ -93,15 +75,10 @@ spawn(function()
         local sg = ((plr.Backpack:FindFirstChild("Skull Guitar") or plr.Character:FindFirstChild("Skull Guitar")) and "🟢" or "🔴")
         local mirror = (plr.Backpack:FindFirstChild("Mirror Fractal") and "🟢" or "🔴")
         local valk = (plr.Backpack:FindFirstChild("Valkyrie Helm") and "🟢" or "🔴")
-
         local lvl = plr.Data.Level.Value
         local beli = plr.Data.Beli.Value
         local frag = plr.Data.Fragments.Value
-
-        status.Text = string.format(
-            "God Human: %s\nCursed Dual Katana: %s\nSkull Guitar: %s\nMirror Fractal: %s\nValkyrie Helm: %s\n\nCurrent Level: %d\nBeli: %d\nFragments: %d",
-            gh, cdk, sg, mirror, valk, lvl, beli, frag
-        )
+        status.Text = string.format("God Human: %s\nCursed Dual Katana: %s\nSkull Guitar: %s\nMirror Fractal: %s\nValkyrie Helm: %s\n\nCurrent Level: %d\nBeli: %d\nFragments: %d", gh, cdk, sg, mirror, valk, lvl, beli, frag)
     end
 end)
 
@@ -174,28 +151,43 @@ local function QuestCheck()
         elseif lvl <= 1499 then q.Mon = "Water Fighter" q.QName = "ForgottenQuest" q.QData = 2 q.PosQ = CFrame.new(-3052, 237, -10142) q.PosM = CFrame.new(-3052, 237, -10142)
         end
     elseif World3 then
-        if lvl <= 1549 then q.Mon = "Pirate Millionaire" q.QName = "PiratePortQuest" q.QData = 1 q.PosQ = CFrame.new(-290, 44, 5577) q.PosM = CFrame.new(-290, 44, 5577)
-        elseif lvl <= 1599 then q.Mon = "Pistol Billionaire" q.QName = "PiratePortQuest" q.QData = 2 q.PosQ = CFrame.new(-290, 44, 5577) q.PosM = CFrame.new(-290, 44, 5577)
-        elseif lvl <= 1649 then q.Mon = "Dragon Crew Warrior" q.QName = "AmazonQuest" q.QData = 1 q.PosQ = CFrame.new(5833, 51, -1103) q.PosM = CFrame.new(5833, 51, -1103)
-        elseif lvl <= 1699 then q.Mon = "Dragon Crew Archer" q.QName = "AmazonQuest" q.QData = 2 q.PosQ = CFrame.new(5833, 51, -1103) q.PosM = CFrame.new(5833, 51, -1103)
-        elseif lvl <= 1749 then q.Mon = "Female Islander" q.QName = "AmazonQuest2" q.QData = 1 q.PosQ = CFrame.new(5448, 602, 748) q.PosM = CFrame.new(5448, 602, 748)
-        elseif lvl <= 1799 then q.Mon = "Giant Islander" q.QName = "AmazonQuest2" q.QData = 2 q.PosQ = CFrame.new(5448, 602, 748) q.PosM = CFrame.new(5448, 602, 748)
-        elseif lvl <= 1849 then q.Mon = "Marine Commodore" q.QName = "MarineTreeIsland" q.QData = 1 q.PosQ = CFrame.new(2180, 29, -6738) q.PosM = CFrame.new(2180, 29, -6738)
-        elseif lvl <= 1899 then q.Mon = "Marine Rear Admiral" q.QName = "MarineTreeIsland" q.QData = 2 q.PosQ = CFrame.new(2180, 29, -6738) q.PosM = CFrame.new(2180, 29, -6738)
-        elseif lvl <= 1949 then q.Mon = "Fishman Raider" q.QName = "DeepForestIsland3" q.QData = 1 q.PosQ = CFrame.new(-10581, 332, -8758) q.PosM = CFrame.new(-10550, 380, -8574)
-        elseif lvl <= 1999 then q.Mon = "Fishman Captain" q.QName = "DeepForestIsland3" q.QData = 2 q.PosQ = CFrame.new(-10581, 332, -8758) q.PosM = CFrame.new(-10764, 380, -8799)
-        elseif lvl <= 2049 then q.Mon = "Forest Pirate" q.QName = "DeepForestIsland" q.QData = 1 q.PosQ = CFrame.new(-13233, 332, -7626) q.PosM = CFrame.new(-13335, 380, -7660)
-        elseif lvl <= 2099 then q.Mon = "Mythological Pirate" q.QName = "DeepForestIsland" q.QData = 2 q.PosQ = CFrame.new(-13233, 332, -7626) q.PosM = CFrame.new(-13844, 520, -7016)
-        elseif lvl <= 2149 then q.Mon = "Jungle Pirate" q.QName = "DeepForestIsland2" q.QData = 1 q.PosQ = CFrame.new(-12682, 391, -9901) q.PosM = CFrame.new(-12166, 380, -10375)
-        elseif lvl <= 2199 then q.Mon = "Musketeer Pirate" q.QName = "DeepForestIsland2" q.QData = 2 q.PosQ = CFrame.new(-12682, 391, -9901) q.PosM = CFrame.new(-13098, 450, -9831)
-        elseif lvl <= 2249 then q.Mon = "Reborn Skeleton" q.QName = "HauntedQuest1" q.QData = 1 q.PosQ = CFrame.new(-9481, 142, 5565) q.PosM = CFrame.new(-8680, 190, 5852)
-        elseif lvl <= 2299 then q.Mon = "Living Zombie" q.QName = "HauntedQuest1" q.QData = 2 q.PosQ = CFrame.new(-9481, 142, 5565) q.PosM = CFrame.new(-10144, 140, 5932)
-        elseif lvl <= 2349 then q.Mon = "Demonic Soul" q.QName = "HauntedQuest2" q.QData = 1 q.PosQ = CFrame.new(-9515, 172, 607) q.PosM = CFrame.new(-9275, 210, 6166)
-        elseif lvl <= 2399 then q.Mon = "Posessed Mummy" q.QName = "HauntedQuest2" q.QData = 2 q.PosQ = CFrame.new(-9515, 172, 607) q.PosM = CFrame.new(-9442, 60, 6304)
-        elseif lvl <= 2449 then q.Mon = "Peanut Scout" q.QName = "NutsIslandQuest" q.QData = 1 q.PosQ = CFrame.new(-2104, 38, -10194) q.PosM = CFrame.new(-1870, 100, -10225)
-        elseif lvl <= 2499 then q.Mon = "Peanut President" q.QName = "NutsIslandQuest" q.QData = 2 q.PosQ = CFrame.new(-2104, 38, -10194) q.PosM = CFrame.new(-2005, 100, -10585)
-        elseif lvl <= 2549 then q.Mon = "Ice Cream Chef" q.QName = "IceCreamIslandQuest" q.QData = 1 q.PosQ = CFrame.new(-818, 66, -10964) q.PosM = CFrame.new(-501, 100, -10883)
-        elseif lvl <= 2599 then q.Mon = "Ice Cream Commander" q.QName = "IceCreamIslandQuest" q.QData = 2 q.PosQ = CFrame.new(-818, 66, -10964) q.PosM = CFrame.new(-690, 100, -11350)
+        if lvl <= 1524 then q.Mon = "Pirate Millionaire" q.QName = "PiratePortQuest" q.QData = 1 q.PosQ = CFrame.new(-290, 44, 5577) q.PosM = CFrame.new(-290, 44, 5577)
+        elseif lvl <= 1574 then q.Mon = "Pistol Billionaire" q.QName = "PiratePortQuest" q.QData = 2 q.PosQ = CFrame.new(-290, 44, 5577) q.PosM = CFrame.new(-290, 44, 5577)
+        elseif lvl <= 1599 then q.Mon = "Dragon Crew Warrior" q.QName = "AmazonQuest" q.QData = 1 q.PosQ = CFrame.new(5833, 51, -1103) q.PosM = CFrame.new(5833, 51, -1103)
+        elseif lvl <= 1624 then q.Mon = "Dragon Crew Archer" q.QName = "AmazonQuest" q.QData = 2 q.PosQ = CFrame.new(5833, 51, -1103) q.PosM = CFrame.new(5833, 51, -1103)
+        elseif lvl <= 1649 then q.Mon = "Female Islander" q.QName = "AmazonQuest2" q.QData = 1 q.PosQ = CFrame.new(5448, 602, 748) q.PosM = CFrame.new(5448, 602, 748)
+        elseif lvl <= 1699 then q.Mon = "Giant Islander" q.QName = "AmazonQuest2" q.QData = 2 q.PosQ = CFrame.new(5448, 602, 748) q.PosM = CFrame.new(5448, 602, 748)
+        elseif lvl <= 1724 then q.Mon = "Marine Commodore" q.QName = "MarineTreeIsland" q.QData = 1 q.PosQ = CFrame.new(2180, 29, -6738) q.PosM = CFrame.new(2180, 29, -6738)
+        elseif lvl <= 1774 then q.Mon = "Marine Rear Admiral" q.QName = "MarineTreeIsland" q.QData = 2 q.PosQ = CFrame.new(2180, 29, -6738) q.PosM = CFrame.new(2180, 29, -6738)
+        elseif lvl <= 1799 then q.Mon = "Fishman Raider" q.QName = "DeepForestIsland3" q.QData = 1 q.PosQ = CFrame.new(-10581, 332, -8758) q.PosM = CFrame.new(-10550, 380, -8574)
+        elseif lvl <= 1824 then q.Mon = "Fishman Captain" q.QName = "DeepForestIsland3" q.QData = 2 q.PosQ = CFrame.new(-10581, 332, -8758) q.PosM = CFrame.new(-10764, 380, -8799)
+        elseif lvl <= 1849 then q.Mon = "Forest Pirate" q.QName = "DeepForestIsland" q.QData = 1 q.PosQ = CFrame.new(-13233, 332, -7626) q.PosM = CFrame.new(-13335, 380, -7660)
+        elseif lvl <= 1899 then q.Mon = "Mythological Pirate" q.QName = "DeepForestIsland" q.QData = 2 q.PosQ = CFrame.new(-13233, 332, -7626) q.PosM = CFrame.new(-13844, 520, -7016)
+        elseif lvl <= 1924 then q.Mon = "Jungle Pirate" q.QName = "DeepForestIsland2" q.QData = 1 q.PosQ = CFrame.new(-12682, 391, -9901) q.PosM = CFrame.new(-12166, 380, -10375)
+        elseif lvl <= 1974 then q.Mon = "Musketeer Pirate" q.QName = "DeepForestIsland2" q.QData = 2 q.PosQ = CFrame.new(-12682, 391, -9901) q.PosM = CFrame.new(-13098, 450, -9831)
+        elseif lvl <= 1999 then q.Mon = "Reborn Skeleton" q.QName = "HauntedQuest1" q.QData = 1 q.PosQ = CFrame.new(-9481, 142, 5565) q.PosM = CFrame.new(-8680, 190, 5852)
+        elseif lvl <= 2024 then q.Mon = "Living Zombie" q.QName = "HauntedQuest1" q.QData = 2 q.PosQ = CFrame.new(-9481, 142, 5565) q.PosM = CFrame.new(-10144, 140, 5932)
+        elseif lvl <= 2049 then q.Mon = "Demonic Soul" q.QName = "HauntedQuest2" q.QData = 1 q.PosQ = CFrame.new(-9515, 172, 607) q.PosM = CFrame.new(-9275, 210, 6166)
+        elseif lvl <= 2074 then q.Mon = "Posessed Mummy" q.QName = "HauntedQuest2" q.QData = 2 q.PosQ = CFrame.new(-9515, 172, 607) q.PosM = CFrame.new(-9442, 60, 6304)
+        elseif lvl <= 2099 then q.Mon = "Peanut Scout" q.QName = "NutsIslandQuest" q.QData = 1 q.PosQ = CFrame.new(-2104, 38, -10194) q.PosM = CFrame.new(-1870, 100, -10225)
+        elseif lvl <= 2124 then q.Mon = "Peanut President" q.QName = "NutsIslandQuest" q.QData = 2 q.PosQ = CFrame.new(-2104, 38, -10194) q.PosM = CFrame.new(-2005, 100, -10585)
+        elseif lvl <= 2149 then q.Mon = "Ice Cream Chef" q.QName = "IceCreamIslandQuest" q.QData = 1 q.PosQ = CFrame.new(-818, 66, -10964) q.PosM = CFrame.new(-501, 100, -10883)
+        elseif lvl <= 2199 then q.Mon = "Ice Cream Commander" q.QName = "IceCreamIslandQuest" q.QData = 2 q.PosQ = CFrame.new(-818, 66, -10964) q.PosM = CFrame.new(-690, 100, -11350)
+        elseif lvl <= 2224 then q.Mon = "Cookie Crafter" q.QName = "CakeQuest1" q.QData = 1 q.PosQ = CFrame.new(-2023, 38, -12028) q.PosM = CFrame.new(-2332, 90, -12049)
+        elseif lvl <= 2249 then q.Mon = "Cake Guard" q.QName = "CakeQuest1" q.QData = 2 q.PosQ = CFrame.new(-2023, 38, -12028) q.PosM = CFrame.new(-1514, 90, -12422)
+        elseif lvl <= 2274 then q.Mon = "Baking Staff" q.QName = "CakeQuest2" q.QData = 1 q.PosQ = CFrame.new(-1931, 38, -12840) q.PosM = CFrame.new(-1930, 90, -12963)
+        elseif lvl <= 2299 then q.Mon = "Head Baker" q.QName = "CakeQuest2" q.QData = 2 q.PosQ = CFrame.new(-1931, 38, -12840) q.PosM = CFrame.new(-2123, 110, -12777)
+        elseif lvl <= 2324 then q.Mon = "Cocoa Warrior" q.QName = "ChocQuest1" q.QData = 1 q.PosQ = CFrame.new(235, 25, -12199) q.PosM = CFrame.new(110, 80, -12245)
+        elseif lvl <= 2349 then q.Mon = "Chocolate Bar Battler" q.QName = "ChocQuest1" q.QData = 2 q.PosQ = CFrame.new(235, 25, -12199) q.PosM = CFrame.new(579, 80, -12413)
+        elseif lvl <= 2374 then q.Mon = "Sweet Thief" q.QName = "ChocQuest2" q.QData = 1 q.PosQ = CFrame.new(150, 25, -12777) q.PosM = CFrame.new(-68, 80, -12692)
+        elseif lvl <= 2399 then q.Mon = "Candy Rebel" q.QName = "ChocQuest2" q.QData = 2 q.PosQ = CFrame.new(150, 25, -12777) q.PosM = CFrame.new(17, 80, -12962)
+        elseif lvl <= 2449 then q.Mon = "Candy Pirate" q.QName = "CandyQuest1" q.QData = 1 q.PosQ = CFrame.new(-1148, 14, -14446) q.PosM = CFrame.new(-1371, 70, -14405)
+        elseif lvl <= 2474 then q.Mon = "Snow Demon" q.QName = "CandyQuest1" q.QData = 2 q.PosQ = CFrame.new(-1148, 14, -14446) q.PosM = CFrame.new(-836, 70, -14326)
+        elseif lvl <= 2499 then q.Mon = "Isle Outlaw" q.QName = "TikiQuest1" q.QData = 1 q.PosQ = CFrame.new(-16547, 56, -172) q.PosM = CFrame.new(-16431, 90, -223)
+        elseif lvl <= 2524 then q.Mon = "Island Boy" q.QName = "TikiQuest1" q.QData = 2 q.PosQ = CFrame.new(-16547, 56, -172) q.PosM = CFrame.new(-16668, 70, -243)
+        elseif lvl <= 2549 then q.Mon = "Sun-kissed Warrior" q.QName = "TikiQuest2" q.QData = 1 q.PosQ = CFrame.new(-16540, 56, 1051) q.PosM = CFrame.new(-16345, 80, 1004)
+        elseif lvl <= 2574 then q.Mon = "Isle Champion" q.QName = "TikiQuest2" q.QData = 2 q.PosQ = CFrame.new(-16540, 56, 1051) q.PosM = CFrame.new(-16634, 85, 1106)
+        elseif lvl <= 2599 then q.Mon = "Serpent Hunter" q.QName = "TikiQuest3" q.QData = 1 q.PosQ = CFrame.new(-16665, 105, 1580) q.PosM = CFrame.new(-16542, 146, 1529)
         elseif lvl <= 2624 then q.Mon = "Reef Bandit" q.QName = "SubmergedQuest1" q.QData = 1 q.PosQ = CFrame.new(10882.264, -2086.322, 10034.226) q.PosM = CFrame.new(10736.6191, -2087.8439, 9338.4882)
         elseif lvl <= 2649 then q.Mon = "Coral Pirate" q.QName = "SubmergedQuest1" q.QData = 2 q.PosQ = CFrame.new(10882.264, -2086.322, 10034.226) q.PosM = CFrame.new(10965.1025, -2158.8842, 9177.2597)
         elseif lvl <= 2674 then q.Mon = "Sea Chanter" q.QName = "SubmergedQuest2" q.QData = 1 q.PosQ = CFrame.new(10882.264, -2086.322, 10034.226) q.PosM = CFrame.new(10621.0342, -2087.8440, 10102.0332)
@@ -204,24 +196,36 @@ local function QuestCheck()
         elseif lvl >= 2725 then q.Mon = "Grand Devotee" q.QName = "SubmergedQuest3" q.QData = 2 q.PosQ = CFrame.new(9636.52441, -1992.19507, 9609.52832) q.PosM = CFrame.new(9557.5849609375, -1928.0404052734375, 9859.1826171875)
         end
     end
-
     return q
 end
 
 spawn(function()
-    while task.wait(1) do
-        pcall(function()
-            local points = plr.Data.Points.Value
-            if points > 0 then
-                if plr.Data.Stats.Melee.Level.Value < 2800 then
-                    CommF:InvokeServer("AddPoint", "Melee", points)
-                elseif plr.Data.Stats.Defense.Level.Value < 2800 then
-                    CommF:InvokeServer("AddPoint", "Defense", points)
-                elseif plr.Data.Stats.Sword.Level.Value < 2800 then
-                    CommF:InvokeServer("AddPoint", "Sword", points)
+    while task.wait(0.5) do
+        if Kaitun.AutoGodHuman then
+            pcall(function()
+                if not (plr.Backpack:FindFirstChild("Superhuman") or plr.Character:FindFirstChild("Superhuman")) then
+                    CommF:InvokeServer("BuySuperhuman")
+                elseif not (plr.Backpack:FindFirstChild("Death Step") or plr.Character:FindFirstChild("Death Step")) then
+                    CommF:InvokeServer("BuyDeathStep")
+                elseif not (plr.Backpack:FindFirstChild("Sharkman Karate") or plr.Character:FindFirstChild("Sharkman Karate")) then
+                    CommF:InvokeServer("BuySharkmanKarate")
+                elseif not (plr.Backpack:FindFirstChild("Electric Claw") or plr.Character:FindFirstChild("Electric Claw")) then
+                    CommF:InvokeServer("BuyElectricClaw")
+                elseif not (plr.Backpack:FindFirstChild("Dragon Talon") or plr.Character:FindFirstChild("Dragon Talon")) then
+                    CommF:InvokeServer("BuyDragonTalon")
+                else
+                    CommF:InvokeServer("BuyGodhuman")
                 end
-            end
-        end)
+            end)
+        end
+    end
+end)
+
+spawn(function()
+    while task.wait(1800) do
+        if Kaitun.Active then
+            TS:Teleport(game.PlaceId, plr)
+        end
     end
 end)
 
@@ -242,16 +246,8 @@ spawn(function()
             local sea = plr.Data.World.Value or 1
             local q = QuestCheck()
 
-            if lvl >= 700 and sea == 1 then
-                CommF:InvokeServer("TravelDressrosa")
-            end
-            if lvl >= 1500 and sea == 2 then
-                CommF:InvokeServer("TravelZou")
-            end
-
-            if Kaitun.AutoGodHuman and lvl >= 2000 then
-                CommF:InvokeServer("BuyGodhuman")
-            end
+            if lvl >= 700 and sea == 1 then CommF:InvokeServer("TravelDressrosa") end
+            if lvl >= 1500 and sea == 2 then CommF:InvokeServer("TravelZou") end
 
             if lvl >= 1100 and sea >= 2 and Kaitun.AutoRaid and plr.Data.Fragments.Value < Kaitun.FragmentGoal then
                 local tool = plr.Character:FindFirstChildOfClass("Tool")
@@ -259,10 +255,7 @@ spawn(function()
                     local fruitName = tool.Name
                     local isHighValue = false
                     for _, high in pairs(HighValueFruits) do
-                        if fruitName == high then
-                            isHighValue = true
-                            break
-                        end
+                        if fruitName == high then isHighValue = true break end
                     end
                     if isHighValue then return end
                 end
