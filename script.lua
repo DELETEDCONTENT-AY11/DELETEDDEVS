@@ -2,11 +2,11 @@ local Library = loadstring(game:HttpGet("https://luacrack.site/index.php/araujoz
 
 local Window = Library:CreateWindow({
     Title = "🌚Eclipse Hub🌑",
-    Desc = "Complete Blox Fruits",
-    Image = "rbxassetid://105245380363493"
+    Desc = "By:A r a u j o",
+    Image = "rbxassetid://112518061635682"
 })
 
-local Tab1 = Window:AddTab("Main", "rbxassetid://7733960981") 
+local Tab1 = Window:AddTab("Main", "🏠") 
 local Section1 = Tab1:AddLeftGroupbox("Auto Farm")
 
 Section1:AddToggle("FarmLevel", {
